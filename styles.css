@@ -5,7 +5,7 @@ body{
     background-color: rgb(122, 122, 199);
     width: 400px;
     border-radius: 10px;
-    border: solid rgb(90, 89, 161) 2px;
+    border: solid rgb(90, 89, 161) 4px;
     margin: 100px auto 0px auto;
     padding: 10px 0px;
 }
@@ -16,7 +16,7 @@ body{
     height: 90%;
     border-radius: 10px;
     margin: 4px auto;
-    border: solid rgb(90, 89, 161) 1px
+    border: solid rgb(90, 89, 161) 2px
 }
 #screen{
     border-radius: 10px;
