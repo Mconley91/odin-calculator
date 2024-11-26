@@ -3,8 +3,62 @@ body{
 }
 #calculator{
     background-color: rgb(122, 122, 199);
-    width: 250px;
-    height: 200px;
+    width: 400px;
     border-radius: 10px;
-    border: solid rgb(90, 89, 161) 2px
+    border: solid rgb(90, 89, 161) 2px;
+    margin: 100px auto 0px auto;
+    padding: 10px 0px;
+}
+#interface{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+    margin: 4px auto;
+    border: solid rgb(90, 89, 161) 1px
+}
+#screen{
+    border-radius: 10px;
+    height: 80px;
+    margin: 5px;
+    resize: none;
+}
+#buttonPad{
+ display: flex;
+ justify-content: center;
+}
+#numberKeys{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border: solid rgb(90, 89, 161) 1px;
+    border-radius: 5px;
+    margin: 5px;
+    width: 200px;
+}
+#operatorKeys{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid rgb(90, 89, 161) 1px;
+    border-radius: 5px;
+    margin: 5px;
+    width: 120px;
+    padding: 5px;
+}
+.number, .operator{
+    margin: 2px;
+    border-radius: 10px;
+    border: solid rgb(90, 89, 161) 1px;
+}
+.number{
+    width: 50px;
+    height: 30px;
+}
+.operator{
+    width: 100px;
+    height: 30px;
 }
