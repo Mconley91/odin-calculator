@@ -48,6 +48,7 @@ body{
     margin: 5px;
     width: 120px;
     padding: 5px;
+    gap: 1px;
 }
 .number, .operator{
     margin: 2px;
@@ -55,10 +56,12 @@ body{
     border: solid rgb(90, 89, 161) 1px;
 }
 .number{
-    width: 50px;
-    height: 30px;
+    width: 90px;
+    height: 40px;
+    font-size: larger;
 }
 .operator{
     width: 100px;
     height: 30px;
+    font-size: larger;
 }
