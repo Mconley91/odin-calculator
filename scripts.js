@@ -57,19 +57,19 @@ btnEight.addEventListener('click',()=>{displayScreen.textContent += '8'});
 btnNine.addEventListener('click',()=>{displayScreen.textContent += '9'});
 
 btnAdd.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' +';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
 });
 btnSubtract.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' -';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
 });
 btnMultiply.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' *';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
 });
 btnDivide.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' /';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
 });
 btnEquals.addEventListener('click',()=>{
-    let decimalSplitString = displayScreen.textContent.split(' ');
+    let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(decimalSplitString.length == 3){
         console.log(`length: ${decimalSplitString.length}`);
         console.log(`string: ${decimalSplitString}`);
