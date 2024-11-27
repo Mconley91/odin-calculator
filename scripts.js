@@ -15,8 +15,19 @@ const btnMultiply = document.querySelector('#multiply');
 const btnDivide = document.querySelector('#divide');
 const btnEquals = document.querySelector('#equals');
 const btnClear = document.querySelector('#clear');
+const allKeys = document.querySelectorAll('.key');
 
-btnZero.addEventListener('click',()=>{displayScreen.textContent += '0'});
+let operationCompelte = false;
+let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
+
+allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display after each successful computation
+    if(operationCompelte){
+        operationCompelte = false;
+        displayScreen.textContent = '';
+    }
+})})
+
+btnZero.addEventListener('click',()=>{displayScreen.textContent != '' ? displayScreen.textContent += '0' : ''});
 btnOne.addEventListener('click',()=>{displayScreen.textContent += '1'});
 btnTwo.addEventListener('click',()=>{displayScreen.textContent += '2'});
 btnThree.addEventListener('click',()=>{displayScreen.textContent += '3'});
@@ -27,10 +38,42 @@ btnSeven.addEventListener('click',()=>{displayScreen.textContent += '7'});
 btnEight.addEventListener('click',()=>{displayScreen.textContent += '8'});
 btnNine.addEventListener('click',()=>{displayScreen.textContent += '9'});
 
-btnAdd.addEventListener('click',()=>{displayScreen.textContent += '+'});
-btnSubtract.addEventListener('click',()=>{displayScreen.textContent += '-'});
-btnMultiply.addEventListener('click',()=>{displayScreen.textContent += '*'});
-btnDivide.addEventListener('click',()=>{displayScreen.textContent += '/'});
-btnEquals.addEventListener('click',()=>{displayScreen.textContent += '='});
+btnAdd.addEventListener('click',()=>{
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
+});
+btnSubtract.addEventListener('click',()=>{
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
+});
+btnMultiply.addEventListener('click',()=>{
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
+});
+btnDivide.addEventListener('click',()=>{
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
+});
+btnEquals.addEventListener('click',()=>{
+    displayScreen.textContent.match('=') ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' = ';
+    operate(displayScreen.textContent);
+});
 
-btnClear.addEventListener('click',()=>{displayScreen.textContent = ''});
+function operate(string){
+    let splitString = string.split(' ');
+    let first = parseInt(splitString[0]);
+    let operator = splitString[1];
+    let second = parseInt(splitString[2]);
+    switch(operator){
+        case '+': displayScreen.textContent += `${first + second}`;
+            break;
+        case '-': displayScreen.textContent += `${first - second}`;
+            break;
+        case '*': displayScreen.textContent += `${first * second}`;
+            break;
+        case '/': displayScreen.textContent += `${first / second}`;
+            break;
+    }
+    operationCompelte = true;
+};
+
+btnClear.addEventListener('click',()=>{
+    displayScreen.textContent = '';
+});
+

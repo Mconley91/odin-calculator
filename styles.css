@@ -23,6 +23,9 @@ body{
     height: 80px;
     margin: 5px;
     resize: none;
+    font-size: xx-large;
+    padding: 10px;
+    text-align: center;
 }
 #buttonPad{
  display: flex;
@@ -30,7 +33,7 @@ body{
 }
 #numberKeys{
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
@@ -38,6 +41,7 @@ body{
     border-radius: 5px;
     margin: 5px;
     width: 200px;
+    padding: 5px;
 }
 #operatorKeys{
     display: flex;
@@ -56,7 +60,7 @@ body{
     border: solid rgb(90, 89, 161) 1px;
 }
 .number{
-    width: 90px;
+    width: 60px;
     height: 40px;
     font-size: larger;
 }
