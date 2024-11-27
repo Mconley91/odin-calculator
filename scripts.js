@@ -57,20 +57,25 @@ btnEight.addEventListener('click',()=>{displayScreen.textContent += '8'});
 btnNine.addEventListener('click',()=>{displayScreen.textContent += '9'});
 
 btnAdd.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' +';
 });
 btnSubtract.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' -';
 });
 btnMultiply.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' *';
 });
 btnDivide.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
+    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' /';
 });
 btnEquals.addEventListener('click',()=>{
-    displayScreen.textContent.match('=') ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' = ';
-    operate(displayScreen.textContent);
+    let decimalSplitString = displayScreen.textContent.split(' ');
+    if(decimalSplitString.length == 3){
+        console.log(`length: ${decimalSplitString.length}`);
+        console.log(`string: ${decimalSplitString}`);
+        displayScreen.textContent.match(/[\=]/) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' = ';
+        operate(displayScreen.textContent);
+    }
 });
 
 function operate(string){
@@ -78,8 +83,6 @@ function operate(string){
     let first = parseFloat(splitString[0]);
     let operator = splitString[1];
     let second = parseFloat(splitString[2]);
-    console.log(first); 
-    console.log(second);
 
     switch(operator){
         case '+': result = `${Math.round(((first + second) + Number.EPSILON) * 100) / 100}`;
