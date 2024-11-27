@@ -61,13 +61,13 @@ function operate(string){
     let operator = splitString[1];
     let second = parseInt(splitString[2]);
     switch(operator){
-        case '+': displayScreen.textContent += `${first + second}`;
+        case '+': displayScreen.textContent += `${Math.round((first + second) * 100) / 100}`;
             break;
-        case '-': displayScreen.textContent += `${first - second}`;
+        case '-': displayScreen.textContent += `${Math.round((first - second) * 100) / 100}`;
             break;
-        case '*': displayScreen.textContent += `${first * second}`;
+        case '*': displayScreen.textContent += `${Math.round((first * second) * 100) / 100}`;
             break;
-        case '/': displayScreen.textContent += `${first / second}`;
+        case '/': displayScreen.textContent += `${Math.round((first / second) * 100) / 100}`;
             break;
     }
     operationCompelte = true;
