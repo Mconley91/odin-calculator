@@ -1,4 +1,5 @@
 const displayScreen = document.querySelector('#screen');
+const btnDecimal = document.querySelector('#decimal')
 const btnZero = document.querySelector('#zero');
 const btnOne = document.querySelector('#one');
 const btnTwo = document.querySelector('#two');
@@ -17,17 +18,32 @@ const btnEquals = document.querySelector('#equals');
 const btnClear = document.querySelector('#clear');
 const allKeys = document.querySelectorAll('.key');
 
+//need to create variables to hold numbers, maybe....
+
 let operationCompelte = false;
 let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
+let result;
 
 allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display after each successful computation
     if(operationCompelte){
         operationCompelte = false;
-        displayScreen.textContent = '';
+        displayScreen.textContent = result;
     }
 })})
 
-btnZero.addEventListener('click',()=>{displayScreen.textContent != '' ? displayScreen.textContent += '0' : ''});
+btnDecimal.addEventListener('click',()=>{ //WORKING HERE. Make it so numbers can only have a single decimal point, kthxbai!
+    let decimalSplitString = displayScreen.textContent.split(' ');
+    decimalSplitString[0].match('.') ? '' : decimalSplitString[0]  += '.';
+    decimalSplitString[2] ? decimalSplitString[2].match('.') ? '' : decimalSplitString[2]  += '.' : '';
+    displayScreen.textContent = decimalSplitString.join(' ');
+})
+
+btnZero.addEventListener('click',()=>{
+    displayScreen.textContent != '' ? //same here. Need to 
+    displayScreen.textContent == '0' ? '' : 
+    displayScreen.textContent += '0' : 
+    displayScreen.textContent = '0'});
+
 btnOne.addEventListener('click',()=>{displayScreen.textContent += '1'});
 btnTwo.addEventListener('click',()=>{displayScreen.textContent += '2'});
 btnThree.addEventListener('click',()=>{displayScreen.textContent += '3'});
@@ -57,19 +73,23 @@ btnEquals.addEventListener('click',()=>{
 
 function operate(string){
     let splitString = string.split(' ');
-    let first = parseInt(splitString[0]);
+    let first = parseFloat(splitString[0]);
     let operator = splitString[1];
-    let second = parseInt(splitString[2]);
+    let second = parseFloat(splitString[2]);
+    console.log(first); 
+    console.log(second);
+
     switch(operator){
-        case '+': displayScreen.textContent += `${Math.round((first + second) * 100) / 100}`;
+        case '+': result = `${Math.round(((first + second) + Number.EPSILON) * 100) / 100}`;
             break;
-        case '-': displayScreen.textContent += `${Math.round((first - second) * 100) / 100}`;
+        case '-': result = `${Math.round(((first - second) + Number.EPSILON) * 100) / 100}`;
             break;
-        case '*': displayScreen.textContent += `${Math.round((first * second) * 100) / 100}`;
+        case '*': result = `${Math.round(((first * second) + Number.EPSILON) * 100) / 100}`;
             break;
-        case '/': displayScreen.textContent += `${Math.round((first / second) * 100) / 100}`;
+        case '/': result = `${Math.round(((first / second) + Number.EPSILON) * 100) / 100}`;
             break;
     }
+    displayScreen.textContent += result;
     operationCompelte = true;
 };
 
