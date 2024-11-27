@@ -18,8 +18,6 @@ const btnEquals = document.querySelector('#equals');
 const btnClear = document.querySelector('#clear');
 const allKeys = document.querySelectorAll('.key');
 
-//need to create variables to hold numbers, maybe....
-
 let operationCompelte = false;
 let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
 let result;
@@ -31,10 +29,14 @@ allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display a
     }
 })})
 
-btnDecimal.addEventListener('click',()=>{ //WORKING HERE. Make it so numbers can only have a single decimal point, kthxbai!
+btnDecimal.addEventListener('click',()=>{ 
     let decimalSplitString = displayScreen.textContent.split(' ');
-    decimalSplitString[0].match('.') ? '' : decimalSplitString[0]  += '.';
-    decimalSplitString[2] ? decimalSplitString[2].match('.') ? '' : decimalSplitString[2]  += '.' : '';
+    if(decimalSplitString.length > 1){
+        decimalSplitString[2].match(/[\.]/) ? '' : decimalSplitString[2]  = decimalSplitString[2] + '.';
+    }
+    if(decimalSplitString.length <= 1){
+        decimalSplitString[0].match(/[\.]/) ? '' : decimalSplitString[0]  = decimalSplitString[0] + '.';
+    }
     displayScreen.textContent = decimalSplitString.join(' ');
 })
 
