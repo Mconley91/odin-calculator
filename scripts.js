@@ -15,6 +15,7 @@ const btnSubtract = document.querySelector('#subtract');
 const btnMultiply = document.querySelector('#multiply');
 const btnDivide = document.querySelector('#divide');
 const btnEquals = document.querySelector('#equals');
+const btnDelete = document.querySelector('#delete');
 const btnClear = document.querySelector('#clear');
 const allKeys = document.querySelectorAll('.key');
 
@@ -101,4 +102,11 @@ function operate(string){
 btnClear.addEventListener('click',()=>{
     displayScreen.textContent = '';
 });
+
+btnDelete.addEventListener('click',()=>{
+    let decimalSplitString = displayScreen.textContent.split('').filter((entry)=>entry != '')
+    decimalSplitString.pop();
+    decimalSplitString[decimalSplitString.length - 1] == ' ' ? decimalSplitString.pop() : ''; //removes whitespace if it is present
+    displayScreen.textContent = decimalSplitString.join('');
+})
 
