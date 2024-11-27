@@ -34,10 +34,10 @@ allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display a
 btnDecimal.addEventListener('click',()=>{ 
     let decimalSplitString = displayScreen.textContent.split(' ');
     if(decimalSplitString.length > 1){
-        decimalSplitString[2].match(/[\.]/) ? '' : decimalSplitString[2]  = decimalSplitString[2] + '.';
+        decimalSplitString[2].match(/[\.]/) ? '' : decimalSplitString[2]  += '.';
     }
     if(decimalSplitString.length <= 1){
-        decimalSplitString[0].match(/[\.]/) ? '' : decimalSplitString[0]  = decimalSplitString[0] + '.';
+        decimalSplitString[0].match(/[\.]/) ? '' : decimalSplitString[0] += '.';
     }
     displayScreen.textContent = decimalSplitString.join(' ');
 })
@@ -45,10 +45,10 @@ btnDecimal.addEventListener('click',()=>{
 btnZero.addEventListener('click',()=>{
     let decimalSplitString = displayScreen.textContent.split(' ');
     if(decimalSplitString.length > 1){
-        decimalSplitString[2] == '0' ? '' : decimalSplitString[2] = decimalSplitString[2] + '0';
+        decimalSplitString[2] == '0' ? '' : decimalSplitString[2] += '0';
     }
     if(decimalSplitString.length <= 1){
-        decimalSplitString[0] == '0' ? '' : decimalSplitString[0] = decimalSplitString[0] + '0';
+        decimalSplitString[0] == '0' ? '' : decimalSplitString[0] += '0';
     }
     displayScreen.textContent = decimalSplitString.join(' ');
 });
@@ -75,6 +75,9 @@ btnAdd.addEventListener('click',()=>{
 });
 btnSubtract.addEventListener('click',()=>{
     let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
+    // if(decimalSplitString[1] != '+'){
+
+    // }
     if(decimalSplitString.length < 2){
         displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
     }
