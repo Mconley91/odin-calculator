@@ -23,13 +23,6 @@ let operationCompelte = false;
 let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
 let result;
 
-allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display after each successful computation
-    if(operationCompelte){
-        operationCompelte = false;
-        displayScreen.textContent = result;
-    }
-})})
-
 btnDecimal.addEventListener('click',()=>{ 
     let decimalSplitString = displayScreen.textContent.split(' ');
     if(decimalSplitString.length > 1){
@@ -42,7 +35,7 @@ btnDecimal.addEventListener('click',()=>{
 })
 
 btnZero.addEventListener('click',()=>{
-    displayScreen.textContent != '' ? //same here. Need to 
+    displayScreen.textContent != '' ? 
     displayScreen.textContent == '0' ? '' : 
     displayScreen.textContent += '0' : 
     displayScreen.textContent = '0'});
@@ -58,23 +51,48 @@ btnEight.addEventListener('click',()=>{displayScreen.textContent += '8'});
 btnNine.addEventListener('click',()=>{displayScreen.textContent += '9'});
 
 btnAdd.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
+    let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
+    if(decimalSplitString.length < 2){
+        displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
+    }
+    if(decimalSplitString.length == 3){
+        operate(displayScreen.textContent);
+        displayScreen.textContent += ' + ';
+    }
 });
 btnSubtract.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
+    let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
+    if(decimalSplitString.length < 2){
+        displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
+    }
+    if(decimalSplitString.length == 3){
+        operate(displayScreen.textContent);
+        displayScreen.textContent += ' - ';
+    }
 });
 btnMultiply.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
+    let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
+    if(decimalSplitString.length < 2){
+        displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
+    }
+    if(decimalSplitString.length == 3){
+        operate(displayScreen.textContent);
+        displayScreen.textContent += ' * ';
+    }
 });
 btnDivide.addEventListener('click',()=>{
-    displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
+    let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
+    if(decimalSplitString.length < 2){
+        displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
+    }
+    if(decimalSplitString.length == 3){
+        operate(displayScreen.textContent);
+        displayScreen.textContent += ' / ';
+    }
 });
 btnEquals.addEventListener('click',()=>{
     let decimalSplitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(decimalSplitString.length == 3){
-        console.log(`length: ${decimalSplitString.length}`);
-        console.log(`string: ${decimalSplitString}`);
-        displayScreen.textContent.match(/[\=]/) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' = ';
         operate(displayScreen.textContent);
     }
 });
@@ -95,7 +113,7 @@ function operate(string){
         case '/': result = `${Math.round(((first / second) + Number.EPSILON) * 100) / 100}`;
             break;
     }
-    displayScreen.textContent += result;
+    displayScreen.textContent = result;
     operationCompelte = true;
 };
 
