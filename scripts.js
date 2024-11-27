@@ -35,10 +35,17 @@ btnDecimal.addEventListener('click',()=>{
 })
 
 btnZero.addEventListener('click',()=>{
-    displayScreen.textContent != '' ? 
-    displayScreen.textContent == '0' ? '' : 
-    displayScreen.textContent += '0' : 
-    displayScreen.textContent = '0'});
+    let decimalSplitString = displayScreen.textContent.split(' ');
+    if(decimalSplitString.length > 1){
+        decimalSplitString[2] == '0' ? '' : decimalSplitString[2] = decimalSplitString[2] + '0';
+        console.log('first if fired')
+    }
+    if(decimalSplitString.length <= 1){
+        decimalSplitString[0] == '0' ? '' : decimalSplitString[0] = decimalSplitString[0] + '0';
+        console.log('second if fired')
+    }
+    displayScreen.textContent = decimalSplitString.join(' ');
+});
 
 btnOne.addEventListener('click',()=>{displayScreen.textContent += '1'});
 btnTwo.addEventListener('click',()=>{displayScreen.textContent += '2'});
