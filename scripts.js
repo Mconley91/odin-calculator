@@ -38,11 +38,9 @@ btnZero.addEventListener('click',()=>{
     let decimalSplitString = displayScreen.textContent.split(' ');
     if(decimalSplitString.length > 1){
         decimalSplitString[2] == '0' ? '' : decimalSplitString[2] = decimalSplitString[2] + '0';
-        console.log('first if fired')
     }
     if(decimalSplitString.length <= 1){
         decimalSplitString[0] == '0' ? '' : decimalSplitString[0] = decimalSplitString[0] + '0';
-        console.log('second if fired')
     }
     displayScreen.textContent = decimalSplitString.join(' ');
 });
@@ -105,6 +103,10 @@ btnEquals.addEventListener('click',()=>{
 });
 
 function operate(string){
+    if(displayScreen.textContent == '0 / 0'){
+        displayScreen.textContent = 'ha ha ha';
+        return;
+    }
     let splitString = string.split(' ');
     let first = parseFloat(splitString[0]);
     let operator = splitString[1];
