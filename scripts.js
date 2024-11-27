@@ -22,6 +22,14 @@ const allKeys = document.querySelectorAll('.key');
 let operationCompelte = false;
 let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
 let result;
+let triedToDivideByZero = false;
+
+allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display after trying to divide by zero
+    if(triedToDivideByZero){
+        triedToDivideByZero = false;
+        displayScreen.textContent = '';
+    }
+})})
 
 btnDecimal.addEventListener('click',()=>{ 
     let decimalSplitString = displayScreen.textContent.split(' ');
@@ -92,7 +100,7 @@ btnDivide.addEventListener('click',()=>{
     }
     if(decimalSplitString.length == 3){
         operate(displayScreen.textContent);
-        displayScreen.textContent += ' / ';
+        triedToDivideByZero ? '' : displayScreen.textContent += ' / ';
     }
 });
 btnEquals.addEventListener('click',()=>{
@@ -103,8 +111,9 @@ btnEquals.addEventListener('click',()=>{
 });
 
 function operate(string){
-    if(displayScreen.textContent == '0 / 0'){
+    if(displayScreen.textContent == '0 / 0'){ //don't divide by zero plz
         displayScreen.textContent = 'ha ha ha';
+        triedToDivideByZero = true;
         return;
     }
     let splitString = string.split(' ');
