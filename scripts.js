@@ -70,6 +70,9 @@ btnAdd.addEventListener('click',()=>{
         displayScreen.textContent = splitString.join('');
         return;
     }
+    if(splitString[0].split('')[0] == '-' && splitString.length < 2){ //identifies negative numbers and allows them to be computed
+        displayScreen.textContent += ' + ';
+    }
     if(splitString.length < 2){
         displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' + ';
     }
@@ -80,24 +83,20 @@ btnAdd.addEventListener('click',()=>{
 });
 btnSubtract.addEventListener('click',()=>{
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
-    
-    if(splitString.length == 3 && splitString[2] != '-'){// executes operate if equation is complete(confirmed working)
-        operate(displayScreen.textContent);
-        displayScreen.textContent += ' - ';
-        return;
-    }
-    if(splitString.length == 2 && splitString[1] != '-'){ //switches operator if not minus and before second number entry (confirmed working)
+    if(splitString.length == 2 && splitString[1] != '-'){ //swaps signs if prompted
         splitString[1] = ' - ';
         displayScreen.textContent = splitString.join('');
         return;
     }
-    if(splitString.length == 2 && splitString[2] == undefined){ //makes the second number negative if it is empty
-        displayScreen.textContent += '-';
+    if(splitString[0].split('')[0] == '-' && splitString.length < 2){ //identifies negative numbers and allows them to be computed
+        displayScreen.textContent += ' - ';
     }
-    if(splitString.length == 0 && splitString[0] == undefined){ //WIP, makes first number negative if it is empty
-        displayScreen.textContent += '-';
+    if(splitString.length < 2){ //prevents operators from being placed if one is present
+        let firstEntrySplit = splitString[0].split('');
+        displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' - ';
     }
-    if(splitString.length == 1 && splitString[1] == undefined && splitString[0] != '-'){ //makes operator subtraction if it is empty
+    if(splitString.length == 3){
+        operate(displayScreen.textContent);
         displayScreen.textContent += ' - ';
     }
 });
@@ -107,6 +106,9 @@ btnMultiply.addEventListener('click',()=>{
         splitString[1] = ' * ';
         displayScreen.textContent = splitString.join('');
         return;
+    }
+    if(splitString[0].split('')[0] == '-' && splitString.length < 2){ //identifies negative numbers and allows them to be computed
+        displayScreen.textContent += ' * ';
     }
     if(splitString.length < 2){
         displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' * ';
@@ -122,6 +124,9 @@ btnDivide.addEventListener('click',()=>{
         splitString[1] = ' / ';
         displayScreen.textContent = splitString.join('');
         return;
+    }
+    if(splitString[0].split('')[0] == '-' && splitString.length < 2){ //identifies negative numbers and allows them to be computed
+        displayScreen.textContent += ' / ';
     }
     if(splitString.length < 2){
         displayScreen.textContent.match(operatorRegex) ? '' : displayScreen.textContent == '' ? '' : displayScreen.textContent += ' / ';
