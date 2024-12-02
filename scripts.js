@@ -1,3 +1,4 @@
+const bodyElement = document.querySelector('body');
 const displayScreen = document.querySelector('#screen');
 const btnDecimal = document.querySelector('#decimal')
 const btnZero = document.querySelector('#zero');
@@ -17,32 +18,72 @@ const btnDivide = document.querySelector('#divide');
 const btnEquals = document.querySelector('#equals');
 const btnDelete = document.querySelector('#delete');
 const btnClear = document.querySelector('#clear');
-const allKeys = document.querySelectorAll('.key');
+const allBtns = document.querySelectorAll('.key');
 
 let operationCompelte = false;
 let operatorRegex = /[\+\-\*\/\(\)\^%]/g;
 let result;
 let triedToDivideByZero = false;
 
-allKeys.forEach((key)=>{key.addEventListener('click',()=>{ //wipes the display after trying to divide by zero
+//wipes the display after trying to divide by zero after pressing any key
+allBtns.forEach((key)=>{key.addEventListener('click',()=>{ 
     if(triedToDivideByZero){
         triedToDivideByZero = false;
         displayScreen.textContent = '';
     }
-})})
-
-btnDecimal.addEventListener('click',()=>{ 
-    let decimalSplitString = displayScreen.textContent.split(' ');
-    if(decimalSplitString.length > 1){
-        decimalSplitString[2].match(/[\.]/) ? '' : decimalSplitString[2]  += '.';
+})});
+bodyElement.addEventListener('keydown',()=>{
+    if(triedToDivideByZero){
+        triedToDivideByZero = false;
+        displayScreen.textContent = '';
     }
-    if(decimalSplitString.length <= 1){
-        decimalSplitString[0].match(/[\.]/) ? '' : decimalSplitString[0] += '.';
-    }
-    displayScreen.textContent = decimalSplitString.join(' ');
 })
 
-btnZero.addEventListener('click',()=>{
+//numpad support
+btnDecimal.addEventListener('click',decimal);
+btnZero.addEventListener('click',zero);
+btnOne.addEventListener('click',one);
+btnTwo.addEventListener('click',two);
+btnThree.addEventListener('click',three);
+btnFour.addEventListener('click',four);
+btnFive.addEventListener('click',five);
+btnSix.addEventListener('click',six);
+btnSeven.addEventListener('click',seven);
+btnEight.addEventListener('click',eight);
+btnNine.addEventListener('click',nine);
+btnAdd.addEventListener('click',addition);
+btnSubtract.addEventListener('click',subtraction);
+btnMultiply.addEventListener('click',multiplication);
+btnDivide.addEventListener('click',division);
+btnEquals.addEventListener('click',equals);
+btnClear.addEventListener('click',clearDisplay);
+btnDelete.addEventListener('click',backspace);
+
+//keyboard support
+bodyElement.addEventListener('keydown',(event)=>{
+    event.key === '0' ? zero() :
+    event.key === '1' ? one() :
+    event.key === '2' ? two() :
+    event.key === '3' ? three() :
+    event.key === '4' ? four() :
+    event.key === '5' ? five() :
+    event.key === '6' ? six() :
+    event.key === '7' ? seven() :
+    event.key === '8' ? eight() :
+    event.key === '9' ? nine() :
+    event.key === '.' ? decimal() :
+    event.key === '+' ? addition() :
+    event.key === '-' ? subtraction() :
+    event.key === '*' ? multiplication() :
+    event.key === '/' ? division() :
+    event.key === '=' ? equals() :
+    event.key === 'Enter' ? equals() :
+    event.key === 'Delete' ? clearDisplay() :
+    event.key === 'Backspace' ? backspace() :
+    ''
+});
+
+function zero(){
     let splitString = displayScreen.textContent.split(' ');
     if(splitString.length > 1){
         splitString[2] == '0' ? '' : splitString[2] += '0';
@@ -51,19 +92,27 @@ btnZero.addEventListener('click',()=>{
         splitString[0] == '0' ? '' : splitString[0] += '0';
     }
     displayScreen.textContent = splitString.join(' ');
-});
-
-btnOne.addEventListener('click',()=>{displayScreen.textContent += '1'});
-btnTwo.addEventListener('click',()=>{displayScreen.textContent += '2'});
-btnThree.addEventListener('click',()=>{displayScreen.textContent += '3'});
-btnFour.addEventListener('click',()=>{displayScreen.textContent += '4'});
-btnFive.addEventListener('click',()=>{displayScreen.textContent += '5'});
-btnSix.addEventListener('click',()=>{displayScreen.textContent += '6'});
-btnSeven.addEventListener('click',()=>{displayScreen.textContent += '7'});
-btnEight.addEventListener('click',()=>{displayScreen.textContent += '8'});
-btnNine.addEventListener('click',()=>{displayScreen.textContent += '9'});
-
-btnAdd.addEventListener('click',()=>{
+};
+function one(){displayScreen.textContent += '1'};
+function two(){displayScreen.textContent += '2'};
+function three(){displayScreen.textContent += '3'};
+function four(){displayScreen.textContent += '4'};
+function five(){displayScreen.textContent += '5'};
+function six(){displayScreen.textContent += '6'};
+function seven(){displayScreen.textContent += '7'};
+function eight(){displayScreen.textContent += '8'};
+function nine(){displayScreen.textContent += '9'};
+function decimal(){
+    let decimalSplitString = displayScreen.textContent.split(' ');
+    if(decimalSplitString.length > 1){
+        decimalSplitString[2].match(/[\.]/) ? '' : decimalSplitString[2]  += '.';
+    }
+    if(decimalSplitString.length <= 1){
+        decimalSplitString[0].match(/[\.]/) ? '' : decimalSplitString[0] += '.';
+    }
+    displayScreen.textContent = decimalSplitString.join(' ');
+};
+function addition(){
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(splitString.length == 2 && splitString[1] != '+'){
         splitString[1] = ' + ';
@@ -80,8 +129,8 @@ btnAdd.addEventListener('click',()=>{
         operate(displayScreen.textContent);
         displayScreen.textContent += ' + ';
     }
-});
-btnSubtract.addEventListener('click',()=>{
+};
+function subtraction(){
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(splitString.length == 2 && splitString[1] != '-'){ //swaps signs if prompted
         splitString[1] = ' - ';
@@ -99,8 +148,8 @@ btnSubtract.addEventListener('click',()=>{
         operate(displayScreen.textContent);
         displayScreen.textContent += ' - ';
     }
-});
-btnMultiply.addEventListener('click',()=>{
+};
+function multiplication(){
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(splitString.length == 2 && splitString[1] != '*'){
         splitString[1] = ' * ';
@@ -117,8 +166,8 @@ btnMultiply.addEventListener('click',()=>{
         operate(displayScreen.textContent);
         displayScreen.textContent += ' * ';
     }
-});
-btnDivide.addEventListener('click',()=>{
+};
+function division(){
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(splitString.length == 2 && splitString[1] != '/'){
         splitString[1] = ' / ';
@@ -135,17 +184,26 @@ btnDivide.addEventListener('click',()=>{
         operate(displayScreen.textContent);
         triedToDivideByZero ? '' : displayScreen.textContent += ' / ';
     }
-});
-btnEquals.addEventListener('click',()=>{
+};
+function equals(){
     let splitString = displayScreen.textContent.split(' ').filter((entry)=>entry != '');
     if(splitString.length == 3){
         operate(displayScreen.textContent);
     }
-});
+};
+function clearDisplay(){
+    displayScreen.textContent = '';
+};
+function backspace(){
+    let splitString = displayScreen.textContent.split('').filter((entry)=>entry != '')
+    splitString.pop();
+    splitString[splitString.length - 1] == ' ' ? splitString.pop() : ''; //removes whitespace if it is present
+    displayScreen.textContent = splitString.join('');
+};
 
 function operate(string){
-    if(displayScreen.textContent == '0 / 0'){ //don't divide by zero plz
-        displayScreen.textContent = 'ha ha ha';
+    if(displayScreen.textContent == '0 / 0'){ 
+        displayScreen.textContent = 'please do not divide by zero';
         triedToDivideByZero = true;
         return;
     }
@@ -167,15 +225,3 @@ function operate(string){
     displayScreen.textContent = result;
     operationCompelte = true;
 };
-
-btnClear.addEventListener('click',()=>{
-    displayScreen.textContent = '';
-});
-
-btnDelete.addEventListener('click',()=>{
-    let splitString = displayScreen.textContent.split('').filter((entry)=>entry != '')
-    splitString.pop();
-    splitString[splitString.length - 1] == ' ' ? splitString.pop() : ''; //removes whitespace if it is present
-    displayScreen.textContent = splitString.join('');
-})
-
