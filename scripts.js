@@ -202,15 +202,16 @@ function backspace(){
 };
 
 function operate(string){
-    if(displayScreen.textContent == '0 / 0'){ 
-        displayScreen.textContent = 'please do not divide by zero';
-        triedToDivideByZero = true;
-        return;
-    }
     let splitString = string.split(' ');
     let first = parseFloat(splitString[0]);
     let operator = splitString[1];
     let second = parseFloat(splitString[2]);
+
+    if(operator === '/' && second === 0){ 
+        displayScreen.textContent = 'please do not divide by zero';
+        triedToDivideByZero = true;
+        return;
+    }
 
     switch(operator){
         case '+': result = `${Math.round(((first + second) + Number.EPSILON) * 100) / 100}`;
